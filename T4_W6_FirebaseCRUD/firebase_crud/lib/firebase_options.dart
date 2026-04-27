@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -15,6 +16,17 @@ import 'package:flutter/foundation.dart'
 /// );
 /// ```
 class DefaultFirebaseOptions {
+  static String _requireEnv(String key) {
+    final value = dotenv.env[key];
+    if (value == null || value.isEmpty) {
+      throw StateError(
+        'Missing required env var: $key. '
+        'Create a .env file (see .env.example) and restart the app.',
+      );
+    }
+    return value;
+  }
+
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
       return web;
@@ -40,49 +52,49 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDtMWNI-wIF1WiS3YOY4x0RfkW1QCNpyX8',
-    appId: '1:927958626697:web:c08c15629b502ffc553158',
-    messagingSenderId: '927958626697',
-    projectId: 'ppb-test-crud-1',
-    authDomain: 'ppb-test-crud-1.firebaseapp.com',
-    storageBucket: 'ppb-test-crud-1.firebasestorage.app',
-    measurementId: 'G-89WBES5GEE',
+  static FirebaseOptions get web => FirebaseOptions(
+    apiKey: _requireEnv('FIREBASE_WEB_API_KEY'),
+    appId: _requireEnv('FIREBASE_WEB_APP_ID'),
+    messagingSenderId: _requireEnv('FIREBASE_WEB_MESSAGING_SENDER_ID'),
+    projectId: _requireEnv('FIREBASE_WEB_PROJECT_ID'),
+    authDomain: _requireEnv('FIREBASE_WEB_AUTH_DOMAIN'),
+    storageBucket: _requireEnv('FIREBASE_WEB_STORAGE_BUCKET'),
+    measurementId: _requireEnv('FIREBASE_WEB_MEASUREMENT_ID'),
   );
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAGsettEw4JfjugqiIF_Ex0JIcCZQWKvZk',
-    appId: '1:927958626697:android:5e2bedbda8686a2b553158',
-    messagingSenderId: '927958626697',
-    projectId: 'ppb-test-crud-1',
-    storageBucket: 'ppb-test-crud-1.firebasestorage.app',
+  static FirebaseOptions get android => FirebaseOptions(
+    apiKey: _requireEnv('FIREBASE_ANDROID_API_KEY'),
+    appId: _requireEnv('FIREBASE_ANDROID_APP_ID'),
+    messagingSenderId: _requireEnv('FIREBASE_ANDROID_MESSAGING_SENDER_ID'),
+    projectId: _requireEnv('FIREBASE_ANDROID_PROJECT_ID'),
+    storageBucket: _requireEnv('FIREBASE_ANDROID_STORAGE_BUCKET'),
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAfsYMAVetZcB3Uexc2p_1ujLZMOSNsF4Y',
-    appId: '1:927958626697:ios:0dedd9355fe095ef553158',
-    messagingSenderId: '927958626697',
-    projectId: 'ppb-test-crud-1',
-    storageBucket: 'ppb-test-crud-1.firebasestorage.app',
-    iosBundleId: 'com.example.firebaseCrud',
+  static FirebaseOptions get ios => FirebaseOptions(
+    apiKey: _requireEnv('FIREBASE_IOS_API_KEY'),
+    appId: _requireEnv('FIREBASE_IOS_APP_ID'),
+    messagingSenderId: _requireEnv('FIREBASE_IOS_MESSAGING_SENDER_ID'),
+    projectId: _requireEnv('FIREBASE_IOS_PROJECT_ID'),
+    storageBucket: _requireEnv('FIREBASE_IOS_STORAGE_BUCKET'),
+    iosBundleId: _requireEnv('FIREBASE_IOS_IOS_BUNDLE_ID'),
   );
 
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAfsYMAVetZcB3Uexc2p_1ujLZMOSNsF4Y',
-    appId: '1:927958626697:ios:0dedd9355fe095ef553158',
-    messagingSenderId: '927958626697',
-    projectId: 'ppb-test-crud-1',
-    storageBucket: 'ppb-test-crud-1.firebasestorage.app',
-    iosBundleId: 'com.example.firebaseCrud',
+  static FirebaseOptions get macos => FirebaseOptions(
+    apiKey: _requireEnv('FIREBASE_MACOS_API_KEY'),
+    appId: _requireEnv('FIREBASE_MACOS_APP_ID'),
+    messagingSenderId: _requireEnv('FIREBASE_MACOS_MESSAGING_SENDER_ID'),
+    projectId: _requireEnv('FIREBASE_MACOS_PROJECT_ID'),
+    storageBucket: _requireEnv('FIREBASE_MACOS_STORAGE_BUCKET'),
+    iosBundleId: _requireEnv('FIREBASE_MACOS_IOS_BUNDLE_ID'),
   );
 
-  static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyDtMWNI-wIF1WiS3YOY4x0RfkW1QCNpyX8',
-    appId: '1:927958626697:web:36952279fcc375fc553158',
-    messagingSenderId: '927958626697',
-    projectId: 'ppb-test-crud-1',
-    authDomain: 'ppb-test-crud-1.firebaseapp.com',
-    storageBucket: 'ppb-test-crud-1.firebasestorage.app',
-    measurementId: 'G-R6E1S4XLY7',
+  static FirebaseOptions get windows => FirebaseOptions(
+    apiKey: _requireEnv('FIREBASE_WINDOWS_API_KEY'),
+    appId: _requireEnv('FIREBASE_WINDOWS_APP_ID'),
+    messagingSenderId: _requireEnv('FIREBASE_WINDOWS_MESSAGING_SENDER_ID'),
+    projectId: _requireEnv('FIREBASE_WINDOWS_PROJECT_ID'),
+    authDomain: _requireEnv('FIREBASE_WINDOWS_AUTH_DOMAIN'),
+    storageBucket: _requireEnv('FIREBASE_WINDOWS_STORAGE_BUCKET'),
+    measurementId: _requireEnv('FIREBASE_WINDOWS_MEASUREMENT_ID'),
   );
 }
