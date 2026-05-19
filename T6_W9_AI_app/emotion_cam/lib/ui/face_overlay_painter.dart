@@ -19,10 +19,11 @@ class FaceOverlayPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     if (imageSize == null || results.isEmpty) return;
 
-    final paint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 3.0
-      ..color = Colors.greenAccent;
+    final paint =
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 3.0
+          ..color = Colors.greenAccent;
 
     final textStyle = const TextStyle(
       color: Colors.white,
@@ -31,7 +32,11 @@ class FaceOverlayPainter extends CustomPainter {
     );
 
     for (final r in results) {
-      final rectInImage = _maybeMirror(r.boundingBox, imageSize!, isFrontCamera);
+      final rectInImage = _maybeMirror(
+        r.boundingBox,
+        imageSize!,
+        isFrontCamera,
+      );
       final rect = _mapRectCover(rectInImage, imageSize!, size);
 
       canvas.drawRect(rect, paint);

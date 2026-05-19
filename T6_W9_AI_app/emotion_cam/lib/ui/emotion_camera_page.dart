@@ -53,7 +53,9 @@ class _EmotionCameraPageState extends State<EmotionCameraPage>
     if (!_hasCameraPermission) return;
 
     final cameras = await availableCameras();
-    final preferred = cameras.where((c) => c.lensDirection == CameraLensDirection.front);
+    final preferred = cameras.where(
+      (c) => c.lensDirection == CameraLensDirection.front,
+    );
     final description = preferred.isNotEmpty ? preferred.first : cameras.first;
     _isFrontCamera = description.lensDirection == CameraLensDirection.front;
 
@@ -94,9 +96,10 @@ class _EmotionCameraPageState extends State<EmotionCameraPage>
 
       final preview = controller.value.previewSize;
       // Fallback if previewSize is not available on some devices.
-      final imageSize = preview == null
-          ? const Size(480, 640)
-          : Size(preview.height, preview.width);
+      final imageSize =
+          preview == null
+              ? const Size(480, 640)
+              : Size(preview.height, preview.width);
 
       if (faces.isEmpty) {
         if (mounted) {
@@ -157,7 +160,8 @@ class _EmotionCameraPageState extends State<EmotionCameraPage>
     final controller = _controller;
     if (controller == null || !controller.value.isInitialized) return;
 
-    if (state == AppLifecycleState.inactive || state == AppLifecycleState.paused) {
+    if (state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.paused) {
       _timer?.cancel();
       unawaited(controller.dispose());
       if (mounted) {
