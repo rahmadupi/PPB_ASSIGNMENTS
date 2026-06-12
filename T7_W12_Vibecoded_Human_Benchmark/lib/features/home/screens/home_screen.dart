@@ -38,7 +38,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Human Benchmark Mini Games')),
+      appBar: AppBar(
+        title: const Text('Human Benchmark Mini Games'),
+      ),
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
@@ -58,7 +60,7 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(width: 16),
                 Expanded(
                   child: Text(
-                    'Pick a game to start. Results compare you to your past runs.',
+                    'Pick a game to start. Results compare you to the global average.',
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
